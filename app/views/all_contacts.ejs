@@ -1,0 +1,37 @@
+<div class="row">
+
+  <h3 class="page-header">
+    <div class="row">
+
+      <div class="col-md-4">
+        All Contacts
+      </div>
+
+    </div>
+
+  </h3>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th class="text-center">Name</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Phone number</th>
+          <th class="text-center">Address</th>
+          <th class="text-center">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% contacts.forEach(function(user, i){ %>
+          <tr >
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.phone_number %></td>
+            <td><%= user.address %> </td>
+            <td><%= user.comments %> </td>
+          </tr>
+        <%}) %>
+      </tbody>
+    </table>
+  </div>
+</div><!--/row-->

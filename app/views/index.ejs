@@ -1,99 +1,66 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Luma Health - It's About Time</title>
-    <!-- <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> -->
-    <!-- Bootstrap core CSS -->
-    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="/stylesheets/custom.css" rel="stylesheet">
-  </head>
-<body>
-   <nav class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Luma Health</a>
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-header">Welcome to Luma Health!</h3>
+    <% if(user.successMsg){ %>
+      <div class="alert alert-success" role="alert">
+        We have received your contact request, We will contact you soon
+      </div>
+    <% } %>
+		<h4>Please sign up below:</h4>
+		<br><br>
+		<form action="/contacts" method="post" class="form-horizontal" data-validate="true">
+			<div class="form-group">
+        <label class="col-sm-4" for="name_field">Your name</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="name_field" placeholder="Enter your name" name="user[name]" value="<%= user.name %>">
+          <span class="error">
+          	<%= errors['user.name'] ? errors['user.name']['msg'] : '' %>
+          </span>
         </div>
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4" for="email_field">Email</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="email_field" placeholder="Enter your email" name="user[email]" value="<%= user.email%>">
+          <span class="error">
+          	<%= errors['user.email'] ? errors['user.email']['msg'] : '' %>
+        	</span>
+        </div>
+      </div>
 
-    <div class="container main-container">
+      <div class="form-group">
+        <label class="col-sm-4">Contact number</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="user[phone_number]" value="<%= user.phone_number %>" placeholder="Enter your contact number">
+          <span class="error">
+          	<%= errors['user.phone_number'] ? errors['user.phone_number']['msg'] : '' %>
+        	</span>
+        </div>
+      </div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <h3 class="page-header">Welcome to Luma Health!</h3>
-          <% if(user.successMsg){ %>
-            <div class="alert alert-success" role="alert">
-              We have received your contact request, We will contact you soon
-            </div>
-          <% } %>
-					<h4>Please sign up below:</h4>
-					<br><br>
-					<form action="/contacts" method="post" class="form-horizontal" data-validate="true">
-						<div class="form-group">
-			        <label class="col-sm-4" for="name_field">Your name</label>
-			        <div class="col-sm-8">
-			          <input type="text" class="form-control" id="name_field" placeholder="Enter your name" name="user[name]" value="<%= user.name %>">
-			          <span class="error">
-			          	<%= errors['user.name'] ? errors['user.name']['msg'] : '' %>
-			          </span>
-			        </div>
-			      </div>
-			      <div class="form-group">
-			        <label class="col-sm-4" for="email_field">Email</label>
-			        <div class="col-sm-8">
-			          <input type="text" class="form-control" id="email_field" placeholder="Enter your email" name="user[email]" value="<%= user.email%>">
-			          <span class="error">
-			          	<%= errors['user.email'] ? errors['user.email']['msg'] : '' %>
-		          	</span>
-			        </div>
-			      </div>
+      <div class="form-group">
+        <label class="col-sm-4">Address</label>
+        <div class="col-sm-8">
+          <textarea name="user[address]" class="form-control" placeholder="Enter your address" rows="5"><%= user.address %></textarea>
+          <span class="error">
+          	<%= errors['user.address'] ? errors['user.address']['msg'] : '' %>
+        	</span>
+        </div>
+      </div>
 
-			      <div class="form-group">
-			        <label class="col-sm-4">Contact number</label>
-			        <div class="col-sm-8">
-			          <input type="text" class="form-control" name="user[phone_number]" value="<%= user.phone_number %>" placeholder="Enter your contact number">
-			          <span class="error">
-			          	<%= errors['user.phone_number'] ? errors['user.phone_number']['msg'] : '' %>
-		          	</span>
-			        </div>
-			      </div>
+      <div class="form-group">
+        <label class="col-sm-4">Comments</label>
+        <div class="col-sm-8">
+          <textarea name="user[comments]" class="form-control" placeholder="Enter comments" rows="5"><%= user.comments %></textarea>
+        </div>
+      </div>
 
-			      <div class="form-group">
-			        <label class="col-sm-4">Address</label>
-			        <div class="col-sm-8">
-			          <textarea name="user[address]" class="form-control" placeholder="Enter your address" rows="5"><%= user.address %></textarea>
-			          <span class="error">
-			          	<%= errors['user.address'] ? errors['user.address']['msg'] : '' %>
-		          	</span>
-			        </div>
-			      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+          <button type="button" class="btn btn-primary saveContact">Submit</button>
+        </div>
+      </div>
 
-			      <div class="form-group">
-			        <label class="col-sm-4">Comments</label>
-			        <div class="col-sm-8">
-			          <textarea name="user[comments]" class="form-control" placeholder="Enter comments" rows="5"><%= user.comments %></textarea>
-			        </div>
-			      </div>
-
-			      <div class="form-group">
-			        <div class="col-sm-offset-4 col-sm-8">
-			          <button type="button" class="btn btn-primary saveContact">Submit</button>
-			        </div>
-			      </div>
-
-					</form>
-        </div><!--/.sidebar-offcanvas-->
-      </div><!--/row-->
-
-    </div><!--/.container-->
-
-
-    <!-- Bootstrap and other JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/javascripts/jquery-2.1.3.min.js"></script>
-    <script src="/javascripts/bootstrap.min.js"></script>
-    <script src="/javascripts/custom.js"></script>
-</body>
-</html>
+		</form>
+  </div><!--/.sidebar-offcanvas-->
+</div><!--/row-->

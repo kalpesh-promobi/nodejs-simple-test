@@ -1,5 +1,6 @@
 var express = require('express');
 var http = require('http');
+var ejsLayouts = require("express-ejs-layouts");
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var config = require('./app/config');
@@ -10,9 +11,10 @@ var app = express();
 var Contact = mongoose.model('Contact');
 
 app.set('port', port);
-app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/app/views');
 
+app.use(ejsLayouts);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -36,6 +38,14 @@ app.get('/', function(request, response) {
     params.user.successMsg=true;
   }
   response.render('index', params);
+});
+
+app.get('/contacts', function(req,res){
+
+  Contact.find(function(e, contacts){
+    res.render('all_contacts', {contacts: contacts});
+  })
+
 });
 
 app.post('/contacts', function(req,res){
