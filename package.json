@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/adityabansod/nodejs-simple-test",
   "dependencies": {
-    "express": "^4.12.3"
+    "body-parser": "^1.12.3",
+    "ejs": "^2.3.1",
+    "express": "^4.12.3",
+    "express-validator": "^2.10.0"
   }
 }
