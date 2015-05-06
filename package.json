@@ -2,9 +2,9 @@
   "name": "nodejs-simple-test",
   "version": "1.0.0",
   "description": "Simple coding test for node.js and express",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,19 @@
   "homepage": "https://github.com/adityabansod/nodejs-simple-test",
   "dependencies": {
     "body-parser": "^1.12.3",
+    "chai": "^2.3.0",
     "ejs": "^2.3.1",
     "express": "^4.12.3",
     "express-validator": "^2.10.0",
+    "mocha": "^2.2.4",
     "mongoose": "^4.0.2"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "chai-http": "^1.0.0",
+    "hippie": "^0.3.0",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1",
+    "supertest": "^0.15.0"
   }
 }
