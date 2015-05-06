@@ -1,26 +1,41 @@
 var express = require('express');
 var http = require('http');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var config = require('./app/config');
+var mongoose = require('mongoose');
+var contact = require('./app/models/contact');
 var port = process.env.PORT || 5000;
 var app = express();
-
+var Contact = mongoose.model('Contact');
 
 app.set('port', port);
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 app.use(expressValidator());
-app.use(express.static('public'));
 
+app.use(express.static('./app/public'));
 
-var defaultParams = {user: {}, errors: {}};
+mongoose.connect(config.dbConfig, function(err) {
+  if (err) {
+    console.error('MongoDB connection error');
+    console.error('Error:', err);
+  } else {
+    console.info('Connected to MongoDB');
+  }
+});
 
 app.get('/', function(request, response) {
-  response.render('index', defaultParams);
+  var params = {user: {}, errors: {}};
+  if(request.query.success){
+    params.user.successMsg=true;
+  }
+  response.render('index', params);
 });
 
 app.post('/contacts', function(req,res){
@@ -42,8 +57,17 @@ app.post('/contacts', function(req,res){
     res.render('index', requestParams);
   }
   else {
-    res.redirect('/');
+    var cnt = new Contact(req.body.user);
+
+    cnt.save(function(err){
+        if(err)
+            console.log(err);
+        else
+            console.log(cnt);
+        res.redirect('/?success=true');
+    });
   }
+
 });
 
 http.createServer(app).listen(app.get('port'), function(){
