@@ -26,7 +26,7 @@ mongoose.connect(config.dbConfig, function(err) {
     console.error('MongoDB connection error');
     console.error('Error:', err);
   } else {
-    console.info('Connected to MongoDB');
+    // console.info('Connected to MongoDB');
   }
 });
 
@@ -38,8 +38,7 @@ app.get('/', function(request, response) {
   response.render('index', params);
 });
 
-app.post('/', function(req,res){
-
+app.post('/contacts', function(req,res){
   // Validations
   req.checkBody(['user', 'name'], 'Please enter name').notEmpty();
   req.checkBody(['user','phone_number'], 'Phone number must contain only numbers').isInt();
@@ -54,7 +53,7 @@ app.post('/', function(req,res){
       user: req.body.user,
       errors: errors
     };
-    res.render('index', requestParams);
+    res.status(422).render('index', requestParams);
   }
   else {
     var cnt = new Contact(req.body.user);
@@ -69,3 +68,5 @@ app.post('/', function(req,res){
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server started on URL localhost:' + port + ' at ' +new Date());
 });
+
+module.exports = app;
