@@ -38,7 +38,7 @@ app.get('/', function(request, response) {
   response.render('index', params);
 });
 
-app.post('/contacts', function(req,res){
+app.post('/', function(req,res){
 
   // Validations
   req.checkBody(['user', 'name'], 'Please enter name').notEmpty();
@@ -60,11 +60,7 @@ app.post('/contacts', function(req,res){
     var cnt = new Contact(req.body.user);
 
     cnt.save(function(err){
-        if(err)
-            console.log(err);
-        else
-            console.log(cnt);
-        res.redirect('/?success=true');
+      res.redirect('/?success=true');
     });
   }
 
